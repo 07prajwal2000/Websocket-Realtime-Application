@@ -3,12 +3,12 @@ using Messaging.Shared.MessageTypes;
 using WatsonWebsocket;
 
 
-using var client = new WatsonWsClient(new Uri("ws://localhost:5553"));
+using var client = new WatsonWsClient("localhost", 8090);
 client.MessageReceived += OnMessageReceived;
 
 client.Start();
 
-Console.WriteLine("enter exit to close or enter other to send message");
+Console.WriteLine("enter exit to close or enter other to send message. Connected: " + client.Connected);
 var message = Console.ReadLine();
 while (!string.Equals(message, "exit", StringComparison.CurrentCultureIgnoreCase))
 {
@@ -53,6 +53,7 @@ void OnMessageReceived(object? sender, MessageReceivedEventArgs e)
 {
     using var packet = NetworkPacket.CreateReadPacket(e.Data.Array!);
     var type = packet.GetMessageType();
+    Console.WriteLine("MESSAGE RECEIVED");
     if (type == MessageType.Register)
     {
         var message = RegisterMessage.FromNetworkPacket(packet);

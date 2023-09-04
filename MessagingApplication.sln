@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33513.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Server", "Messaging.Server\Messaging.Server.csproj", "{D468DF35-FE19-4685-8FD3-204BCC245822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messaging.Server", "Messaging.Server\Messaging.Server.csproj", "{D468DF35-FE19-4685-8FD3-204BCC245822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Client", "Messaging.Client\Messaging.Client.csproj", "{E3EA6E21-1D21-4D30-ACCA-3E1532B0E7A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messaging.Client", "Messaging.Client\Messaging.Client.csproj", "{E3EA6E21-1D21-4D30-ACCA-3E1532B0E7A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Shared", "Messaging.Shared\Messaging.Shared.csproj", "{2E734C10-F472-47A5-99E4-8706CAFBB9AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messaging.Shared", "Messaging.Shared\Messaging.Shared.csproj", "{2E734C10-F472-47A5-99E4-8706CAFBB9AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Web", "Messaging.Web\Messaging.Web.csproj", "{50F926D9-2C01-4C6B-BCEC-F9ECBE72E7CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{2E734C10-F472-47A5-99E4-8706CAFBB9AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E734C10-F472-47A5-99E4-8706CAFBB9AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E734C10-F472-47A5-99E4-8706CAFBB9AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F926D9-2C01-4C6B-BCEC-F9ECBE72E7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F926D9-2C01-4C6B-BCEC-F9ECBE72E7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F926D9-2C01-4C6B-BCEC-F9ECBE72E7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F926D9-2C01-4C6B-BCEC-F9ECBE72E7CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

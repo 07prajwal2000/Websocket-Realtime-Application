@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/runtime:7.0 AS base
 WORKDIR /app
-EXPOSE 5553
+EXPOSE 8090
+EXPOSE 8091
+EXPOSE 8092
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -17,4 +19,6 @@ RUN dotnet publish "Messaging.Server.csproj" -c Release -o /app/publish /p:UseAp
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ip=127.0.0.1
+ENV port=8090
 ENTRYPOINT ["dotnet", "Messaging.Server.dll"]
