@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WatsonWebsocket" Version="4.0.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+    <PackageReference Include="Telepathy" Version="1.0.341" />
   </ItemGroup>
 
   <ItemGroup>

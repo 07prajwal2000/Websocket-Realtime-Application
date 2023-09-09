@@ -1,73 +1,83 @@
-﻿using Messaging.Shared;
-using Messaging.Shared.MessageTypes;
-using WatsonWebsocket;
+﻿using ImGuiNET;
+using Messaging.Client;
+using Messaging.Shared;
+using Raylib_cs;
+using rlImGui_cs;
+using Websocket.Client;
 
-
-using var client = new WatsonWsClient("localhost", 8090);
-client.MessageReceived += OnMessageReceived;
+var client = new Client();
 
 client.Start();
 
-Console.WriteLine("enter exit to close or enter other to send message. Connected: " + client.Connected);
-var message = Console.ReadLine();
-while (!string.Equals(message, "exit", StringComparison.CurrentCultureIgnoreCase))
-{
-    message = Console.ReadLine();
-    if (string.IsNullOrWhiteSpace(message)) continue;
+Console.ReadKey();
 
-    await client.SendAsync(message);
+client.Stop();
 
-    if (message?.StartsWith("list-clients", StringComparison.CurrentCultureIgnoreCase) ?? false)
-    {
-        SendListConnectionsMessage();
-    }
-    if (message?.StartsWith("send", StringComparison.CurrentCultureIgnoreCase) ?? false)
-    {
-        var msgs = message.Count(x => x == ' ');
-        if (msgs < 2) continue;
-        message = message.Remove(0, 5);
-        var spIdx = message.IndexOf(" ");
+return;
 
-        var user = message.Substring(0, spIdx + 1).Trim();
-        var msg = message.Substring(spIdx + 1).Trim();
+//bool connected = false;
+//var messages = new List<string>();
 
-        SendMessageToUser(user, message);
-    }
-}
+//using var client = new WebsocketClient(new Uri("wss://localhost:5001/ws"));
 
-client.Dispose();
+//client.MessageReceived.Subscribe(x => OnMessageReceived(x));
+//client.DisconnectionHappened.Subscribe(x => { connected = false; });
 
-async void SendListConnectionsMessage()
-{
-    var msg = new ListConnectionMessageFromClientType();
-    await client.SendAsync(msg.ToArraySegment());
-}
 
-async void SendMessageToUser(string user, string message)
-{
-    var msg = new SendMessageToUserMessageTypeFromClient(user, message);
-    await client.SendAsync(msg.ToArraySegment());
-}
+//Raylib.InitWindow(640, 420, "Socket - client");
+//rlImGui.Setup();
+//while (!Raylib.WindowShouldClose())
+//{
+//    Raylib.BeginDrawing();
+//    Raylib.ClearBackground(Color.BLANK);
+//    rlImGui.Begin();
+//    DrawGui();
+//    rlImGui.End();
 
-void OnMessageReceived(object? sender, MessageReceivedEventArgs e)
-{
-    using var packet = NetworkPacket.CreateReadPacket(e.Data.Array!);
-    var type = packet.GetMessageType();
-    Console.WriteLine("MESSAGE RECEIVED");
-    if (type == MessageType.Register)
-    {
-        var message = RegisterMessage.FromNetworkPacket(packet);
-        Console.WriteLine("Your username is: " + message.Username + "\nID: " + message.Id);
-    }
-    if (type == MessageType.ListConnections)
-    {
-        var message = ListConnectionMessageFromServer.FromNetworkPacket(packet);
-        Console.WriteLine($"\nConnetions: {message.Connections}\nTotal Connections: {message.Connections.Count(c => c == ',') + 1}\n");
-    }
-    if (type == MessageType.SendMessage)
-    {
-        var fromUser = packet.ReadString();
-        var message = packet.ReadString();
-        Console.WriteLine("Message received: " + message + " from " + fromUser);
-    }
-}
+//    Raylib.EndDrawing();
+//}
+//rlImGui.Shutdown();
+//Raylib.CloseWindow();
+//client.Dispose();
+
+//void DrawGui()
+//{
+//    if (!connected && ImGui.Button("Connect"))
+//    {
+//        Connect();
+//        connected = true;
+//    }
+//    else if (connected && ImGui.Button("Disconnect"))
+//    {
+//        Disconnect();
+//    }
+//    ImGui.BeginChild(100);
+//    foreach (var msg in messages)
+//    {
+//        ImGui.Text(msg);
+//    }
+//    ImGui.EndChild();
+//}
+
+//void Disconnect()
+//{
+//    if (!connected) return;
+//    client.Stop(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, "").GetAwaiter().GetResult();
+//    connected = false;
+//}
+//void Connect()
+//{
+//    if (connected) return;
+//    client.Start();
+//    connected = true;
+//}
+
+//void OnMessageReceived(ResponseMessage message)
+//{
+//    Console.WriteLine("Message received");
+//    using var packet = NetworkPacket.CreateReadPacket(message.Binary!);
+//    packet.ReadInt();
+//    var msg = packet.ReadString();
+
+//    messages.Add(msg);
+//}
